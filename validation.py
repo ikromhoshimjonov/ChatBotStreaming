@@ -12,7 +12,7 @@ from sqlmodel import Session
 from apps.database import engine
 from typing import Annotated
 from fastapi import Depends, HTTPException
-from security import password_hash, SECRET_KEY, ALGORITHM, security_scheme
+from security import password_hash, ALGORITHM, security_scheme
 
 def get_session():
     with Session(engine) as session:
@@ -20,6 +20,7 @@ def get_session():
 SessionDep = Annotated[Session, Depends(get_session)]
 
 load_dotenv()
+SECRET_KEY = getenv("SECRET_KEY")
 AI_SECRET_KEY = getenv("AI_SECRET_KEY")
 
 
