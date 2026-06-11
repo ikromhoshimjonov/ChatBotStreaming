@@ -19,6 +19,7 @@ def get_session():
         yield session
 SessionDep = Annotated[Session, Depends(get_session)]
 
+
 load_dotenv()
 SECRET_KEY = getenv("SECRET_KEY")
 AI_SECRET_KEY = getenv("AI_SECRET_KEY")
@@ -98,8 +99,7 @@ async def get_current_user(cred: Annotated[HTTPAuthorizationCredentials | None, 
         if username is None or token_type != "access":
             raise HTTPException(status_code=401, detail="Yaroqsiz token turi!")
         return username
-    except jwt.PyJWTError  as e :
-        print("🔴 JWT DECODE XATOLIGI:", str(e))
+    except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Token xato yoki muddati o'tgan!")
 
 
